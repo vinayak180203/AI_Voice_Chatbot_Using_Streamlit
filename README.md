@@ -31,3 +31,5 @@ Step 5: Crafting requirements.txt <br />
     And save the above packages. <br />
   c.Installing the packages <br />
   pip install -r requirements.txt <br />
+<br />
+Finally, run streamlit run logy_app2.py in terminal.
