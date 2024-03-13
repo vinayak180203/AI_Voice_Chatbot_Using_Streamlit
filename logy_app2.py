@@ -5,8 +5,10 @@ import tempfile
 import base64
 import azure.cognitiveservices.speech as speechsdk
 import os
+from dotenv import load_dotenv
+load_dotenv() 
 
-GOOGLE_API_KEY=os.environ.get('GOOGLE_API_KEY')
+GOOGLE_API_KEY=os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
 
 model=genai.GenerativeModel("gemini-pro") 
@@ -44,7 +46,7 @@ def recognize_speech():
     global recognized_text, speaker_id
     recognized_text = ""
     speaker_id = ""  
-    speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
+    speech_config = speechsdk.SpeechConfig(subscription=os.getenv('SPEECH_KEY'), region=os.getenv('SPEECH_REGION'))
     speech_config.speech_recognition_language = "en-US"
 
     audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)  
