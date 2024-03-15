@@ -33,14 +33,10 @@ def truncate_and_complete_response(response, max_length):
 
 recognized_text = ""
 speaker_id = ""
-current_audio = None
+audio_placeholder = st.empty()  
 def play_audio(audio_base64):
-    global current_audio
-    if current_audio:
-        return 
-    current_audio = f'<audio src="data:audio/mp3;base64,{audio_base64}" autoplay="autoplay" controls="controls" style="display:none;"></audio>'
-    st.write(current_audio, unsafe_allow_html=True)
-    current_audio = None
+    current_audio = f'<audio id="audio-player" src="data:audio/mp3;base64,{audio_base64}" autoplay="autoplay" controls="controls" style="display:none;"></audio>'
+    audio_placeholder.write(current_audio, unsafe_allow_html=True)
 
 def recognize_speech():
     global recognized_text, speaker_id
@@ -85,6 +81,7 @@ def recognize_speech():
                 continue
 
             elif is_audio_playing and user_query and speaker_name!="Guest-2":
+                audio_placeholder.empty()  # Clear previous audio
                 is_audio_playing = False
                 # Send user's query to the model
                 st.write(f"User: {user_query}")
